@@ -28,7 +28,7 @@ class MainTest {
         Main main = new Main();
 
         //Then
-        Assert.assertEquals(8, main.getTotalFoodViews(RegPatterns.milk, main.input));
+        Assert.assertEquals(6, main.getTotalFoodViews(RegPatterns.milk, main.errorFreeInput));
     }
     @Test
     public void testGetMilkPrices() throws Exception {

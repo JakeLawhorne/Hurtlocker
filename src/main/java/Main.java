@@ -91,16 +91,16 @@ public class Main {
         return new ArrayList<>(prices);
     }
 
+
+
     public static void main(String[] args) throws Exception {
         Main main = new Main();
+        JerkSON apples = new JerkSON("apples", main.getApplesPrices(main.errorFreeInput));
+        JerkSON milk = new JerkSON("apples", main.getMilkPrices(main.errorFreeInput));
+        JerkSON bread = new JerkSON("apples", main.getBreadPrices(main.errorFreeInput));
+        JerkSON cookies = new JerkSON("apples", main.getCookiesPrices(main.errorFreeInput));
         String input = main.input;
-        System.out.println(main.errorCounter(input));
-
-        System.out.println(main.errorFreeInput);
-        System.out.println(main.getMilkPrices(main.errorFreeInput).toString());
-        System.out.println(main.getApplesPrices(main.errorFreeInput).toString());
-        System.out.println(main.getBreadPrices(main.errorFreeInput).toString());
-        System.out.println(main.getCookiesPrices(main.errorFreeInput).toString());
+        int errorCounter = main.errorCounter(input);
 
     }
 
