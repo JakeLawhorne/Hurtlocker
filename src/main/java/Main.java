@@ -1,46 +1,108 @@
 import org.apache.commons.io.IOUtils;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public Main() throws Exception {
     }
 
-    public String readRawDataToString() throws Exception{
+    public String readRawDataToString() throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
         String result = IOUtils.toString(classLoader.getResourceAsStream("RawData.txt"));
         return result;
     }
-    public String dataSplitter() throws Exception {
-        Pattern splitter = Pattern.compile("##");
-        Matcher matcher = splitter.matcher(readRawDataToString());
-        StringBuffer sb = new StringBuffer();
-        String replacement = "\n";
-        while(matcher.find()){
-            matcher.appendReplacement(sb,replacement);
+
+    public String input = readRawDataToString();
+    public String errorFreeInput = removeErrorData(rawToLines());
+
+    public String rawToLines() {
+        Pattern pattern = Pattern.compile("##");
+        Matcher matcher = pattern.matcher(input);
+        StringBuilder sb = new StringBuilder();
+        String replacer = "\n";
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, replacer);
         }
-
-        return matcher.appendTail(sb).toString();
+        return sb.toString();
     }
-    public String input = dataSplitter();
 
-    public int errorCounter(){
-        int count = 0;
+    public int errorCounter(String input) {
         Pattern error = RegPatterns.error;
         Matcher matcher = error.matcher(input);
-        while(matcher.find()){
-            if(matcher.find()){
-                count++;
-            }
-        }
-        return count;
+        return (int) matcher.results().count();
     }
-    public static void main(String[] args) throws Exception{
+
+    public String removeErrorData(String input) {
+        Pattern pattern = Pattern.compile("^.*[:@^*%;][:@^*%;].*$", Pattern.MULTILINE + Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+        String result = matcher.replaceAll("");
+        return result;
+    }
+
+    public int getTotalFoodViews(Pattern pattern, String input) {
+        Pattern pat = pattern;
+        Matcher matcher = pat.matcher(input);
+        return (int) matcher.results().count();
+    }
+
+    public ArrayList<String> getMilkPrices(String input) {
+        List<String> prices = new ArrayList<>();
+        Pattern pattern = RegPatterns.getMilkPrice;
+        Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            prices.add(matcher.group());
+        }
+        return new ArrayList<>(prices);
+    }
+
+    public ArrayList<String> getApplesPrices(String input) {
+        List<String> prices = new ArrayList<>();
+        Pattern pattern = RegPatterns.getApplesPrice;
+        Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            prices.add(matcher.group());
+        }
+        return new ArrayList<>(prices);
+    }
+
+    public ArrayList<String> getBreadPrices(String input) {
+        List<String> prices = new ArrayList<>();
+        Pattern pattern = RegPatterns.getBreadPrice;
+        Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            prices.add(matcher.group());
+        }
+        return new ArrayList<>(prices);
+    }
+
+    public ArrayList<String> getCookiesPrices(String input) {
+        List<String> prices = new ArrayList<>();
+        Pattern pattern = RegPatterns.getCookiesPrice;
+        Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            prices.add(matcher.group());
+        }
+        return new ArrayList<>(prices);
+    }
+
+    public static void main(String[] args) throws Exception {
         Main main = new Main();
-        System.out.println(main.input);
-        System.out.println( main.errorCounter());
+        String input = main.input;
+        System.out.println(main.errorCounter(input));
+
+        System.out.println(main.errorFreeInput);
+        System.out.println(main.getMilkPrices(main.errorFreeInput).toString());
+        System.out.println(main.getApplesPrices(main.errorFreeInput).toString());
+        System.out.println(main.getBreadPrices(main.errorFreeInput).toString());
+        System.out.println(main.getCookiesPrices(main.errorFreeInput).toString());
 
     }
+
 }
+
