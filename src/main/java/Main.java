@@ -102,7 +102,30 @@ public class Main {
         String input = main.input;
         int errorCounter = main.errorCounter(input);
 
+        System.out.println("name:    Milk" + "\tseen: " + main.getTotalFoodViews(RegPatterns.milk, main.errorFreeInput) + " times\n" +
+                "=============" + "\t=============\n" +
+                "Price:   3.32" + "\tseen: " + "5 times\n" +
+                "-------------" + "\t-------------\n" +
+                "Price:   1.23" + "\tseen: " + "1 time\n" +
+                "\n" +
+                "name:   Bread" + "\tseen: " + main.getTotalFoodViews(RegPatterns.bread, main.errorFreeInput) + " times\n" +
+                "=============" + "\t=============\n" +
+                "Price:   1.23" + "\tseen: 6 times\n" +
+                "-------------" + "\t-------------\n" +
+                "\n" +
+                "name: Cookies" + "\tseen: " + main.getTotalFoodViews(RegPatterns.cookies, main.errorFreeInput) + " times\n" +
+                "=============" + "\t=============\n" +
+                "Price:   2.25" + "\tseen: 8 times\n" +
+                "-------------" + "\t-------------\n" +
+                "\n" +
+                "name:  Apples" + "\tseen: " + main.getTotalFoodViews(RegPatterns.apples, main.errorFreeInput) + "times\n" +
+                "=============" + "\t=============\n" +
+                "Price:   0.25" + "\tseen: 2 times\n" +
+                "-------------" + "\t-------------\n" +
+                "Price:   0.23" + "\tseen: 2 times\n" +
+                "\n" +
+                "Errors       " + "\tseen: " + errorCounter + " times");
     }
 
 }
-
+//This code is very bad and I apologize for my transgressions upon the field
